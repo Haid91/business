@@ -1,9 +1,15 @@
-import React from 'react'
-
-export function Card({ children, className = '' }) {
-  return <div className={`rounded-lg border border-stone-200 bg-white ${className}`}>{children}</div>
+export function Card({ children, className = "", ...props }) {
+  return (
+    <div className={`rounded-xl border bg-white shadow-sm ${className}`} {...props}>
+      {children}
+    </div>
+  );
 }
 
-export function CardContent({ children, className = '' }) {
-  return <div className={`p-6 ${className}`}>{children}</div>
+export function CardContent({ children, className = "", ...props }) {
+  return (
+    <div className={`p-4 ${className}`} {...props}>
+      {children}
+    </div>
+  );
 }

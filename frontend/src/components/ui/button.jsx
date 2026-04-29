@@ -1,23 +1,25 @@
-import React from 'react'
+export function Button({
+  children,
+  className = "",
+  variant = "default",
+  size,
+  ...props
+}) {
+  const base =
+    "inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition cursor-pointer";
 
-export function Button({ variant = 'default', size = 'md', className = '', children, ...props }) {
-  const baseClass = 'font-medium rounded transition-colors'
-  const variantClass = {
-    default: 'bg-stone-900 text-white hover:bg-stone-800',
-    outline: 'border border-stone-300 text-stone-900 hover:bg-stone-100',
-    ghost: 'text-stone-900 hover:bg-stone-100'
-  }[variant]
-  
-  const sizeClass = {
-    sm: 'px-3 py-1 text-sm',
-    md: 'px-4 py-2',
-    lg: 'px-6 py-3',
-    icon: 'p-2 h-10 w-10'
-  }[size]
+  const styles =
+    variant === "outline"
+      ? "border border-stone-300 bg-white text-stone-900 hover:bg-stone-100"
+      : variant === "ghost"
+      ? "bg-transparent hover:bg-stone-100"
+      : "bg-stone-900 text-white hover:bg-stone-800";
+
+  const iconSize = size === "icon" ? "h-10 w-10 p-0" : "";
 
   return (
-    <button className={`${baseClass} ${variantClass} ${sizeClass} ${className}`} {...props}>
+    <button className={`${base} ${styles} ${iconSize} ${className}`} {...props}>
       {children}
     </button>
-  )
+  );
 }

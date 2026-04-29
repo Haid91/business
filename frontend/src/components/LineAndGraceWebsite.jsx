@@ -1,10 +1,47 @@
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Search, ShoppingBag, Menu, Heart, ArrowRight, Sparkles, Truck, ShieldCheck, RotateCcw } from "lucide-react";
-import { Button } from "../ui/button";
-import { Card, CardContent } from "../ui/card";
-import { Input } from "../ui/input";
-import { Badge } from "../ui/badge";
+
+// Button Component
+function Button({ children, className = "", variant = "default", size, ...props }) {
+  const base = "inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition cursor-pointer";
+  const styles = variant === "outline"
+    ? "border border-stone-300 bg-white text-stone-900 hover:bg-stone-100"
+    : variant === "ghost" ? "bg-transparent hover:bg-stone-100"
+    : "bg-stone-900 text-white hover:bg-stone-800";
+  const iconSize = size === "icon" ? "h-10 w-10 p-0" : "";
+  return <button className={`${base} ${styles} ${iconSize} ${className}`} {...props}>{children}</button>;
+}
+
+// Card Component
+function Card({ children, className = "", ...props }) {
+  return <div className={`rounded-xl border bg-white shadow-sm ${className}`} {...props}>{children}</div>;
+}
+
+// CardContent Component
+function CardContent({ children, className = "", ...props }) {
+  return <div className={`p-4 ${className}`} {...props}>{children}</div>;
+}
+
+// Input Component
+function Input({ className = "", ...props }) {
+  return <input className={`w-full rounded-md border border-stone-300 px-3 py-2 outline-none focus:ring-2 focus:ring-stone-400 ${className}`} {...props} />;
+}
+
+// Badge Component
+function Badge({ children, className = "", ...props }) {
+  return <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ${className}`} {...props}>{children}</span>;
+}
+
+// Simple icon components
+const Search = () => <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>;
+const ShoppingBag = () => <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>;
+const Menu = () => <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>;
+const Heart = () => <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>;
+const ArrowRight = () => <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>;
+const Sparkles = () => <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>;
+const Truck = () => <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>;
+const ShieldCheck = () => <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
+const RotateCcw = () => <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>;
 
 const products = [
   {
